@@ -47,19 +47,3 @@ public class Main {
 
 
 
-//        Barrel barrel = new Barrel (true, 10, 2, 2);
-//
-//        barrel.name  = Barrel.Name.Lisa;
-//        System.out.println("Name: " + barrel.name);
-//
-//        System.out.println("Apples: " + barrel.apples);
-//        System.out.println("Grapes: " + barrel.grapes);
-//        System.out.println("Bananas: " + barrel.bananas);
-//
-//        barrel.litres = 5;
-//
-//        barrel.isOpen = true;
-//        System.out.println("Открыта? : " + barrel.isOpen);
-//
-//        List<String> easyNames = Arrays.asList("Nika","Sergey","Lolita");
-//        System.out.println(easyNames.get(1));
