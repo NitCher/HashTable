@@ -1,19 +1,18 @@
-
 public class MyHashTable {
 
-    private Integer[] keys;
-    private Integer[] objects;
+    private Object[] keys;
+    private Object[] objects;
 
+    boolean doesPrintToConsole = false;
 
     /*Конструктор*/
     MyHashTable(int size) {
-        keys = new Integer[size];
-        objects = new Integer[size];
+        keys = new Object[size];
+        objects = new Object[size];
     }
 
     /*Добавление*/
-
-    void add(int key, int object) {
+    void add(Object key, Object object) {
         boolean doesEmptyKeyExists = false;
 
         for (int i = 0; i < keys.length; i++) {
@@ -26,69 +25,79 @@ public class MyHashTable {
         if (doesEmptyKeyExists) {
             for (int i = 0; i < keys.length; i++) {
                 if (keys[i] != null && keys[i] == key) {
-                    System.out.println("Ключ " + key + " уже есть");
+                    if (doesPrintToConsole) System.out.println("Ключ " + key + " уже есть");
                     break;
                 } else if (keys[i] == null) {
                     keys[i] = key;
                     objects[i] = object;
-                    System.out.println("Ключ " + key + " добавлен, его объект: " + object);
+                    if (doesPrintToConsole) System.out.println("Ключ " + key + " добавлен, его объект: " + object);
                     break;
                 }
             }
         } else {
-            System.out.println("Достигнут лимит ключей");
+            if (doesPrintToConsole) System.out.println("Достигнут лимит ключей");
         }
     }
 
     /*Поиск*/
-
-    void find(int key) {
+    boolean find(Object key) {
         for (int i = 0; i < keys.length; i++) {
             if (keys[i] != null && keys[i] == key) {
-                System.out.println("Ключ " + key + " найден, его обьект: " + objects[i]);
-                return;
+                if (doesPrintToConsole) System.out.println("Ключ " + key + " найден, его обьект: " + objects[i]);
+                return true;
             }
         }
 
-        System.out.println("Ключ " + key + " не найден");
+        if (doesPrintToConsole) System.out.println("Ключ " + key + " не найден");
+        return false;
     }
 
     /*Равенство*/
-
-    boolean compare(int key1, int key2) {
-        int object1 = 0;
+    boolean compareKeys(Object key1, Object key2) {
+        Object object1 = 0;
         for (int i = 0; i < keys.length; i++) {
             if (keys[i] != null && keys[i] == key1) {
                 object1 = objects[i];
             }
         }
-        int object2 = 0;
+        Object object2 = 0;
         for (int i = 0; i < keys.length; i++) {
             if (keys[i] != null && keys[i] == key2) {
                 object2 = objects[i];
             }
         }
         if (object1 == object2) {
-            System.out.println("Объекты ключей " + key1 + " и " + key2 + " равны");
+            if (doesPrintToConsole) System.out.println("Объекты ключей " + key1 + " и " + key2 + " равны");
             return true;
         } else {
-            System.out.println("Объекты ключей " + key1 + " и " + key2 + " разные");
+            if (doesPrintToConsole) System.out.println("Объекты ключей " + key1 + " и " + key2 + " разные");
             return false;
         }
     }
 
+    boolean compareWithOtherTable(MyHashTable otherTable) {
+        for (int i = 0; i < keys.length; i++) {
+            if (!objects[i].equals(otherTable.objects[i])) {
+                if (doesPrintToConsole) System.out.println("Указанная хэш-таблица имеет другие объекты");
+                return false;
+            }
+        }
+
+        if (doesPrintToConsole) System.out.println("Сравниваемые объекты хэш-таблиц идентичны");
+        return true;
+    }
+
     /*Удаление*/
-    void remove(int key) {
+    void remove(Object key) {
         for (int i = 0; i < keys.length; i++) {
             if (keys[i] != null && keys[i] == key) {
                 keys[i] = null;
                 objects[i] = null;
-                System.out.println("Ключ " + key + " и его объект удалены");
+                if (doesPrintToConsole) System.out.println("Ключ " + key + " и его объект удалены");
                 return;
             }
         }
 
-        System.out.println("Невозможно удалить ключ " + key + ", ключ не найден");
+        if (doesPrintToConsole) System.out.println("Невозможно удалить ключ " + key + ", ключ не найден");
     }
 }
-
